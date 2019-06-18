@@ -128,6 +128,3 @@ def test_pull_slices(params, file_extension, file_type):
                 assert equal
         os.remove(f_slice_path)
     assert equal
-
-
-test_invalid_start_end(23125, 12456678)

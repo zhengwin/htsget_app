@@ -1,6 +1,7 @@
 from minio import Minio
 from minio.error import (ResponseError, BucketAlreadyOwnedByYou,BucketAlreadyExists)
 from pysam import VariantFile
+import boto3
 import json
 
 # Initialize minioClient with an endpoint and access/secret keys.
@@ -46,17 +47,14 @@ def download_file():
 
 def download_file_2():
     try:
-        data = minioClient.get_object('test', 'NA18537.vcf.gz.tbi')
-        # raw_data = data.read()
-        # encoding = data.info().get_content_charset('utf8')
-        # data = json.loads(raw_data.decode(encoding))
-        vcf_in = VariantFile("-", "wb")
-        for s in data.stream():
-            vcf_in.write(s)
-        # for rec in vcf.fetch():
-        #     print(rec.pos)
-        # for d in data.stream():
-        #     print(d)
+        # data = minioClient.get_object('test', 'NA18537.vcf.gz.tbi')
+        # s3 = boto3.resource('s3')
+        # bucket = s3.Bucket('play.min.io:9000/test/NA18537.vcf.gz.tbi')
+        # obj = bucket.Object('Q3AM3UQ867SPQQA43P2F')
+
+        with open('play.min.io:9000/test/NA18537.vcf.gz.tbi', 'wb') as data:
+            print(data)
+
     except ResponseError as err:
         print(err)
 
